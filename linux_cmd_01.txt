@@ -1,0 +1,46 @@
+// Linux CMD
+
+
+cd  //used to access directory
+ll -a //shows the files are directories in the present directory
+cat    //to see the content inside a file
+vi, nano, vim    //to edit the content inside a file
+vi command can be also used to craete a file
+rm   //to remove/delete a file directory
+rm -r  // r stands for recursive
+rm -r test*   //to delete all the files starting with 'test' word  can be used to delete multiple files starting with the same name
+mv // can be used to move a file/directory or rename
+mkdir  // to create a directory
+chmod    // to change the permissions Note '-' is used to remove and '+' is used to add the permissions
+Top //CPU USAGE
+Kill //Mention PID and it will kell process
+systemctl {status or start or stop or restart} name of the service  // to check if a service is running/stopped/restart etc.
+df -ah  // to check the disk space
+tcpdump -Ani any port 514 -vv -w /var/log/514.pcap (28330)
+sudo -i   //login as root user
+cat /etc/rsyslog.conf      // to configure Rsyslog Daemon to listin and compare the incoming logs
+Wget // used to download the file
+ 
+# provides UDP syslog reception
+module(load="imudp")
+input(type="imudp" port="514")
+# provides TCP syslog reception
+module(load="imtcp")
+input(type="imtcp" port="514")
+ 
+systemctl status rsyslog.service
+systemctl status firewalld     //check if the internal firewall is enabled
+watch -n 2 -d iptables -nvL   // to check the iptables
+Add the firewall rules to the firewall policy
+sudo firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -p tcp --dport 25226  -j ACCEPT
+sudo firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -p udp --dport 25224  -j ACCEPT
+sudo firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -p tcp --dport 25224  -j ACCEPT
+sudo firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -p tcp --dport 22033  -j ACCEPT
+sudo firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -p udp --dport 22033  -j ACCEPT
+sestatus    // used to check the status of SELINUX
+TO DISABLE SELINUX:
+Update the SELinux configuration file and set SELINUX=disabled to permanently disable the SELinux on your system. This will completely disable all the SELinux context.
+vi /etc/selinux/config
+cat /etc/rsyslog.d/95-omsagent.conf     // if OMS is installed on the lOg coll and you are trying to get the Syslog messages check if the facilities are mentioned
+Note: you can open the logs we collected on 514 in wireshark and check the facilities over which the logs are sent to port 514
+cat /etc/opt/microsoft/omsagent/{WORKSPACE ID}/conf/omsagent.d/security_events.conf     // used to compare the CEF logs if we are sending the logs via OMS agent
